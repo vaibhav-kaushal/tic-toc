@@ -4,7 +4,7 @@ GitHub published that they now allow you to publish your code's documentation us
 
 This effort by GitHub is not only noble but also provides for better documentation alongside code. No need to have a second repo or website where you have to update documentation of your project. Hence, every pull request can now automatically have the required changes to documentation. Also, documentation can be done in Markdown which is the most popular markup language being used for the purpose. Submitting documentation becomes easy and as maintainable as code itself. Brilliant! However there is a catch: To make the documentation navigable, you have to do the linking manually. Since new documentation can be added rapidly, existing ones moved and renamed while some old ones might be deleted.
 
-Doc-Toc is a easy-to-use system which can create a TOC (Table of Contents) from a folder inside which the documents reside. Its aim is to:
+Tic-Toc is a easy-to-use system which can create a TOC (Table of Contents) from a folder inside which the documents reside. Its aim is to:
 
 - [ ] Create a master TOC for all `.md` files in the given folder.
 - [ ] Create a TOC for all individual folders beneath it.
