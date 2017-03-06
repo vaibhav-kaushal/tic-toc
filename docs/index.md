@@ -12,6 +12,6 @@ Doc-Toc is a easy-to-use system which can create a TOC from a folder inside whic
 - [ ] Create a navigation breadcrumb at the top of each `.md` document.
 
 
-##ATTENTION!
+## ATTENTION!
 
 The TOC files will bear the name of `toc.md`. So if you already have any file with that name in the directory where you would run doc-toc, they would be overwritten!
