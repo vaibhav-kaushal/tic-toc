@@ -4,3 +4,4 @@ Creates TOCs for the `/docs` folder so that every project has a decent documenta
 
 Check out [this post](https://github.com/blog/2233-publish-your-project-documentation-with-github-pages)
 
+Check out [this post](https://github.com/blog/2233-publish-your-project-documentation-with-github-pages)

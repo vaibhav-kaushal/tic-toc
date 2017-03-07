@@ -15,3 +15,6 @@ Tic-Toc is a easy-to-use system which can create a TOC (Table of Contents) from 
 ## ATTENTION!
 
 The TOC files will bear the name of `toc.md`. So if you already have any file with that name in the directory where you would run tic-toc, they would be overwritten!
+
+----
+[Table of Contents](toc.md)
