@@ -72,18 +72,27 @@
 			return false;
 		}
 
-		public static function GenerateMainToc() {
-			self::GenerateTocForArray('', 0, self::$documentTree);
+		public static function GenerateIntermediateToc() {
+
 		}
 
-		public static function GenerateTocForArray($strBasePath = '', $intNestingLevel = 0, $strPathArray) {
+		public static function GenerateIntermediateTocFragment($str) {
+
+		}
+
+		public static function GenerateMainToc() {
+			$strToc = self::GenerateTocFragment('', 0, self::$documentTree);
+			file_put_contents(self::$basePath . '/toc.md', $strToc);
+		}
+
+		public static function GenerateTocFragment($strBasePath = '', $intNestingLevel = 0, $strPathArray) {
 			// Make sure that the data inputted is an array
 			if (!is_array($strPathArray)) {
 				throw new Exception('Inputted value is not an array. Cannot proceed');
 			}
 
 			$strMdStringToReturn = '';
-			$i = 1;
+			$i = 0;
 			foreach ($strPathArray as $name => $value) {
 				// Strip the 'MD' extension from name.
 				$displayName = $name;
@@ -97,21 +106,21 @@
 				$link = $strBasePath . '/' . $name;
 				if ($value == 'file') {
 					// It is a file
-					$strMdStringToReturn .= str_repeat("\t", $intNestingLevel) . ' ' . $i++ . '. [' . $displayName . '](' . $link . ')' . "\r\n";
-				} elseif(is_array($value)) {
-					// It is a folder
-					$strSubFolderLinks = self::GenerateTocForArray($strBasePath . '/' . $name, $intNestingLevel++, $value);
-
-					if (self::$blnBuildIntermediateToc) {
-						$strMdStringToReturn .= str_repeat("\t", $intNestingLevel) . ' ' . $i++ . '. [' . $displayName . '](' . $link . '/toc.md)' . "\r\n";
-					} else {
-						$strMdStringToReturn .= str_repeat("\t", $intNestingLevel) . ' ' . $i++ . '. ' . $displayName . "\r\n";
+					// Process it if it is not the TOC file
+					if ($displayName != 'toc') {
+						$strMdStringToReturn .= str_repeat("\t", $intNestingLevel) . ' ' . ($i + 1) . '. [' . $displayName . '](' . $link . ')' . "\r\n";
 					}
+				} elseif (is_array($value)) {
+					// It is a folder
+					$strSubFolderLinks = self::GenerateTocFragment($strBasePath . '/' . $name, $intNestingLevel + 1, $value);
+
+					$strMdStringToReturn .= str_repeat("\t", $intNestingLevel) . ' ' . ($i + 1) . '. [' . $displayName . '/](' . $link . '/toc.md)' . "\r\n";
 
 					$strMdStringToReturn .= $strSubFolderLinks;
 				} else {
 					throw new Exception('Unexpected value in document tree');
 				}
+				$i++;
 			}
 
 			if (self::$blnBuildIntermediateToc) {
@@ -130,6 +139,10 @@
 			self::BuildDocumentTree();
 
 			self::GenerateMainToc();
+
+			if(self::$blnBuildIntermediateToc) {
+				self::GenerateIntermediateToc();
+			}
 		}
 	}
 
